@@ -1,0 +1,19 @@
+version: "3"
+
+services: 
+
+  rabbitmq:
+    build: rabbitmq
+    ports: 
+    - "${RABBITMQ_LISTENER_PORT}:5672"
+    - "${RABBITMQ_HTTP_PORT}:15672"
+    environment: 
+    - RABBITMQ_DEFAULT_USER
+    - RABBITMQ_DEFAULT_PASS
+    - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=0.8
+    hostname: rabbitmq # important for persistent queues
+    volumes:
+    - rabbitmq:/var/lib/rabbitmq/mnesia
+
+volumes:
+  rabbitmq:
